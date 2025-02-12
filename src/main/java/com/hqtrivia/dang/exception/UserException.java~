@@ -1,0 +1,29 @@
+package com.hqtrivia.dang.exception;
+
+import com.hqtrivia.dang.model.error.AppErrorResponse;
+import com.hqtrivia.dang.model.user.UserNotFound;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@ControllerAdvice
+@ResponseStatus
+@Order(value = 1)
+public class UserException extends RuntimeException {
+    @ExceptionHandler(UserNotFound.class)
+    public ResponseEntity<Map<String, Object>> handleUserNotFound() {
+        Map<String, Object> body = new HashMap<>();
+        body.put("code", String.valueOf(HttpStatus.NOT_FOUND.value()));
+        body.put("message", "User Not Found");
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(body);
+    }
+}

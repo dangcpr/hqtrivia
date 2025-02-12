@@ -1,0 +1,13 @@
+package com.hqtrivia.dang.repo.user;
+
+import com.hqtrivia.dang.model.user.UserRequest;
+import com.hqtrivia.dang.model.user.UserResponseSuccess;
+
+public interface UserRepo {
+    void addUser(UserRequest userRequest);
+    boolean existUser(UserRequest userRequest);
+    boolean existUserByEmail(String email);
+    boolean existUserByUsername(String username);
+    boolean existUserByPhoneNumber(String phone_number);
+    UserResponseSuccess findUserByEmail(String email);
+}
